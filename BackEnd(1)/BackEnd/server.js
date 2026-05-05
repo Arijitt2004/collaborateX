@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -99,14 +100,15 @@ io.on("connection", (socket) => {
 });
 
 // MongoDB + server start
+const PORT = process.env.PORT || 3001;
+const MONGODB_URI = process.env.MONGODB_URI;
+
 mongoose
-  .connect(
-    "mongodb+srv://manvendrasinghshekhawat:%40CollaborateX_584@collaboratex.oqrjc1u.mongodb.net/CollaborateX"
-  )
+  .connect(MONGODB_URI)
   .then(() => {
     console.log("MongoDB Connected");
-    server.listen(3001, () => {
-      console.log("Server running on port 3001");
+    server.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
     });
   })
   .catch(console.error);
